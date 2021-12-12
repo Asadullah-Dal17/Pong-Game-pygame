@@ -9,10 +9,11 @@ screen_width = 1000
 screen_height= 660
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong-game')
-
+ball_speed_x = 5 
+ball_speed_y = 5
 # Game Rectangle 
 ball = pygame.Rect(screen_width/2-15, screen_height/2-15, 30,30)
-player = pygame.Rect(screen_width/-20, screen_height/2-70, 10,140)
+player = pygame.Rect(screen_width-20, screen_height/2-70, 10,140)
 opponent = pygame.Rect(10, screen_height/2-70, 10, 140)
 bg_color = pygame.Color('gray12')
 light_gray = (200,200,200)
@@ -22,5 +23,17 @@ while True:
         if event.type==pygame.QUIT:
             pygame.quite()
             sys.exit()
+        
+    # moveing the ball 
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
+    # Draw Visuals 
+    screen.fill(bg_color)
+    pygame.draw.rect(screen, light_gray, player)
+    pygame.draw.rect(screen, light_gray, opponent)
+    pygame.draw.ellipse(screen, light_gray, ball)
+    # drawing line 
+    pygame.draw.aaline(screen,light_gray, (screen_width/2, 0), (screen_width/2, screen_height))
+
     pygame.display.flip()
     clock.tick(60)
